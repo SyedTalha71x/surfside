@@ -1,12 +1,12 @@
 import './App.css'
-import Home from './pages/home'
+import Index from './pages'
 import Navbar from './components/navbar'
 function App() {
 
   return (
     <>
     <Navbar/>
-     <Home/>
+     <Index/>
     </>
   )
 }

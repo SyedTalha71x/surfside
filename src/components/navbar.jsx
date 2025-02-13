@@ -4,7 +4,18 @@ import { IoMdClose } from "react-icons/io";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const sidebarRef = useRef(null);
+
+  // Handle scroll event
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 50); // Change when scrolled past 50px
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Handle click outside
   useEffect(() => {
@@ -19,7 +30,11 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed w-full top-0 z-50 p-7">
+    <nav
+      className={`fixed w-full top-0 z-50 p-7 transition-colors duration-300 ${
+        isScrolled ? "bg-gray-900 shadow-lg" : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <a
           href="/"
@@ -30,28 +45,19 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
           <div className="flex space-x-1 bg-gradient-to-r from-[#8788FE] to-[#696CEE] rounded-xl px-24 backdrop-blur-3xl py-2">
-            <a
-              href="/"
-              className="text-white text-sm px-4 py-1 rounded-full transition-colors"
-            >
+            <a href="/" className="text-white text-sm px-4 py-1 rounded-full transition-colors">
               Home
             </a>
-            <a
-              href="/convert"
-              className="text-white text-sm px-4 py-1 rounded-full transition-colors"
-            >
+            <a href="/convert" className="text-white text-sm px-4 py-1 rounded-full transition-colors">
               Convert Now
             </a>
-            <a
-              href="/about"
-              className="text-white text-sm px-4 py-1 rounded-full transition-colors"
-            >
+            <a href="/about" className="text-white text-sm px-4 py-1 rounded-full transition-colors">
               About Us
             </a>
           </div>
         </div>
 
-        <div className="hidden md:flex items-center ">
+        <div className="hidden md:flex items-center">
           <button className="flex items-center space-x-2 text-sm rounded-xl bg-gradient-to-r from-[#8788FE] to-[#696CEE] text-white px-5 py-2 cursor-pointer transition-colors hover:opacity-90">
             <span>Contact Us</span>
           </button>
@@ -96,25 +102,13 @@ export default function Navbar() {
           </button>
 
           <div className="flex flex-col pt-20 px-4">
-            <a
-              href="/"
-              className="text-white py-3 hover:bg-white/10 rounded-lg transition-colors px-3"
-              onClick={() => setIsOpen(false)}
-            >
+            <a href="/" className="text-white py-3 hover:bg-white/10 rounded-lg transition-colors px-3" onClick={() => setIsOpen(false)}>
               Home
             </a>
-            <a
-              href="/convert"
-              className="text-white py-3 hover:bg-white/10 rounded-lg transition-colors px-3"
-              onClick={() => setIsOpen(false)}
-            >
+            <a href="/convert" className="text-white py-3 hover:bg-white/10 rounded-lg transition-colors px-3" onClick={() => setIsOpen(false)}>
               Convert Now
             </a>
-            <a
-              href="/about"
-              className="text-white py-3 hover:bg-white/10 rounded-lg transition-colors px-3"
-              onClick={() => setIsOpen(false)}
-            >
+            <a href="/about" className="text-white py-3 hover:bg-white/10 rounded-lg transition-colors px-3" onClick={() => setIsOpen(false)}>
               About Us
             </a>
             <div className="flex items-center mt-4">

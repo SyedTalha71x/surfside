@@ -4,11 +4,12 @@ import ImageRight from '../../public/Frame 19.svg'
 import { MdArrowOutward } from "react-icons/md";
 import { FiArrowDownRight } from "react-icons/fi";
 
+
 const Home = () => {
   return (
     <main className="min-h-screen bg-black text-white pt-26">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-        <div className="text-center max-w-5xl mx-auto mb-16">
+        <div className="text-center max-w-5xl mx-auto mb-8">
           <h1 className="text-6xl md:text-8xl robotto_font  mb-10 tracking-tight">
             <span className="bg-gradient-to-r from-[#8788FE] to-[#696CEE] text-transparent bg-clip-text [text-shadow:0_0_20px_rgba(135,136,254,0.5),0_0_40px_rgba(105,108,238,0.3)]">Fast</span>
             {" "}and{" "}

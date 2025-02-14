@@ -2,11 +2,13 @@
 import React from 'react'
 import Home from './home'
 import Converter from './converter'
+import TopConversions from './top-conversions'
 const index = () => {
   return (
     <>
     <Home/>
     <Converter/>
+    <TopConversions/>
     </>
   )
 }

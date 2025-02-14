@@ -17,7 +17,7 @@ export default function CurrencyConverter() {
   return (
     <div className=" bg-black p-4 flex flex-col items-center justify-center">
       <div className="text-center mb-6">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Convertor</h1>
+        <h1 className="text-4xl md:text-5xl robotto_font  text-white mb-2">Convertor</h1>
         <p className="text-gray-400 text-lg">Covert currency</p>
       </div>
 

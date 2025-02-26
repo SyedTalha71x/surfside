@@ -11,8 +11,7 @@ function Dashboard() {
   const [search, setSearch] = useState("");
 
   return (
-    <div className="p-6">
-      {/* Header with Welcome text and Search */}
+    <div className="md:p-6 p-0">
       <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-4xl text-white font-bold !font-roboto">Welcome Jess!</h1>

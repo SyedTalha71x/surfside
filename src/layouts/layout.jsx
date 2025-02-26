@@ -8,7 +8,7 @@ const Dashboardlayout = () => {
     <div className="min-h-screen bg-[#0B0D11] p-4">
       <div className="flex flex-col md:flex-row">
         <Sidebar />
-        <main className="flex-1 px-4 py-8 md:p-6 p-2 mt-5 md:mt-0 overflow-y-auto">
+        <main className="flex-1 md:px-4 px-0 py-8 md:p-6 p-2 mt-10 md:mt-0 overflow-y-auto">
           <Outlet />
         </main>
       </div>

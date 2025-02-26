@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+body {
+    scroll-behavior: smooth;
+}
+
+@theme {
+    --font-roboto: Roboto, sans-serif;
+
+    --font-russo: Russo One, sans-serif;
+
+    --default-font-family: "Roboto", serif;
+
+    --color-primary-1: "#8788FE";
+    --color-primary-2: "#696CEE";
+}
+
+.nav-hover-btn {
+    @apply relative  font-medium text-xs uppercase  after:absolute after:-bottom-0.5 after:left-0 after:h-[1px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-[#8788FE] after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 dark:after:bg-[#8788FE] cursor-pointer;
+}
+
+
+@layer utilities {
+
+    .gradient-title {
+        @apply bg-clip-text text-clip overflow-hidden text-transparent bg-gradient-to-tl from-[#8788FE] to-[#696CEE];
+    }
+
+
+    
+}

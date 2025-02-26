@@ -1,0 +1,29 @@
+import React from 'react';
+
+const VisitorCard = () => {
+  return (
+    <div className="bg-white rounded-2xl p-5 h-full flex flex-col justify-between">
+    <div className="flex items-start">
+      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+        </svg>
+      </div>
+    </div>
+    
+    <div className="my-3">
+      <h2 className="text-gray-900 text-3xl font-bold">60K</h2>
+      <p className="text-green-500 text-sm font-medium">Visitor</p>
+    </div>
+    
+    <div className="flex items-center text-gray-500 text-xs">
+      <span>Jul 2022</span>
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </div>
+  );
+};
+
+export default VisitorCard;

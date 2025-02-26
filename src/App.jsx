@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import DashboardLayout from "./layouts/layout";
 import Home from "./pages/dashboard";
+import Login from './pages/login'
 
 const App = () => {
   return (
@@ -21,7 +22,10 @@ const App = () => {
             </GridLines>
             <Footer />
           </div>
-        } />
+        }
+        
+        />
+        <Route path="login" element={<Login/>}/>
 
 
         {/* Dashboard routes */}

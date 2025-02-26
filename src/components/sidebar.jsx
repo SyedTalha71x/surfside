@@ -15,9 +15,12 @@ function Sidebar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const logout = () =>{
+    window.location.href = '/login'
+  }
+
   return (
     <>
-      {/* Hamburger Button with scroll-based background */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
@@ -75,9 +78,8 @@ function Sidebar() {
             </Link>
           </nav>
 
-          {/* Logout Button */}
           <div className="mt-auto">
-            <button className="flex items-center gap-3 p-3 text-gray-400 hover:text-gray-300 transition-colors">
+            <button onClick={logout} className="flex items-center gap-3 p-3 text-gray-400 hover:text-gray-300 transition-colors">
               <FiLogOut className="w-5 h-5" />
               <span className="text-sm">Logout</span>
             </button>

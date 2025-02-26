@@ -1,4 +1,4 @@
-import ReportCardImage from '../../public/images/9_Pragmatica_3D_Metal_Calendar.svg';
+import ReportCardImage from '../../public/images/9_Pragmatica_3D_Metal_Calendar.png';
 
 function ReportCard() {
   return (
@@ -8,7 +8,7 @@ function ReportCard() {
       </div>
       <div className="flex-1 flex flex-col items-center justify-center">
         <div>
-          <img src={ReportCardImage} alt="Report Calendar" className="w-20 h-20" />
+          <img src={ReportCardImage} alt="Report Calendar" className="w-24 h-24" />
         </div>
         <p className="text-lg mt-2 font-bold text-[#23005B]">12th Aug, 2022</p>
       </div>

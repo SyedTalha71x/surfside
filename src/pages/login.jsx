@@ -60,12 +60,12 @@ export default function SignInPage() {
               Sign In
             </button>
           </form>
-          <p className="mt-4 text-center text-gray-400">
+          {/* <p className="mt-4 text-center text-gray-400">
             Already have an account?{' '}
             <a href="#" className="text-white font-semibold hover:underline">
               Sign in
             </a>
-          </p>
+          </p> */}
         </div>
 
         {/* Right Section */}

@@ -78,10 +78,10 @@ function Sidebar() {
             </Link>
           </nav>
 
-          <div className="mt-auto">
-            <button onClick={logout} className="flex items-center gap-3 p-3 text-gray-400 hover:text-gray-300 transition-colors">
-              <FiLogOut className="w-5 h-5" />
-              <span className="text-sm">Logout</span>
+          <div className="mb-[20%] cursor-pointer ">
+            <button onClick={logout} className="flex items-center  justify-center gap-3 p-3 text-md text-gray-200 hover:text-gray-300 transition-colors">
+              <FiLogOut className="w-5 h-5 cursor-pointer" />
+              <span className="cursor-pointer">Logout</span>
             </button>
           </div>
         </div>

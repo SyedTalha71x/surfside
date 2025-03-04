@@ -40,7 +40,7 @@ function Dashboard() {
       {/* Header */}
       <div className="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-4xl text-white font-bold !font-roboto">Welcome Jess!</h1>
+          <h1 className="text-4xl text-white font-bold !font-roboto">Welcome Elijah!</h1>
           <p className="text-white text-sm mt-1 !font-roboto">Here is your cc dashboard</p>
         </div>
         <div className="w-full md:w-auto">
@@ -63,8 +63,7 @@ function Dashboard() {
         <div className="md:col-span-8 bg-white rounded-2xl p-5">
           <div className="flex justify-between items-center mb-6 p-2 relative">
             <div>
-              <h2 className="text-black font-roboto text-xl font-bold">User</h2>
-              <p className="text-md font-roboto font-semibold text-[#5321CA]">Total Revenue</p>
+              <h2 className="text-black font-roboto text-xl font-bold">Daily Visitors</h2>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-3">

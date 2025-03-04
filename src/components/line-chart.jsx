@@ -1,81 +1,137 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Line } from 'recharts';
 import {
   LineChart as RechartsLineChart,
+  Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
+  Legend,
+  ReferenceLine,
+} from "recharts"
 
 function LineChart() {
   const data = [
-    { name: "FEB", User: 30, Visitor: 20 },
-    { name: "MAR", User: 80, Visitor: 50 },
-    { name: "APR", User: 45, Visitor: 75 },
-    { name: "MAY", User: 60, Visitor: 40 },
-    { name: "JUN", User: 30, Visitor: 70 },
-    { name: "JUL", User: 50, Visitor: 20 },
-  ];
+    { name: "FEB", Visitors: 30000, Conversions: 2100, ConversionRate: 7.0 },
+    { name: "MAR", Visitors: 80000, Conversions: 6400, ConversionRate: 8.0 },
+    { name: "APR", Visitors: 45000, Conversions: 4050, ConversionRate: 9.0 },
+    { name: "MAY", Visitors: 60000, Conversions: 5400, ConversionRate: 9.0 },
+    { name: "JUN", Visitors: 30000, Conversions: 3300, ConversionRate: 11.0 },
+    { name: "JUL", Visitors: 50000, Conversions: 6000, ConversionRate: 12.0 },
+  ]
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-2 rounded-lg shadow-md text-center">
-          <p className="text-xs text-gray-500 mb-1">{label} 14</p>
-          <p className="text-lg font-semibold">{payload[0].value}M</p>
+        <div className="bg-[#0B0D11] p-3 rounded-lg shadow-md border border-gray-700 text-white">
+          <p className="text-xs font-medium mb-1">{label} 2023</p>
+          <div className="space-y-1">
+            <p className="text-sm flex justify-between">
+              <span className="font-medium text-[#696CEE] mr-3">Visitors:</span>
+              <span>{payload[0].value.toLocaleString()}</span>
+            </p>
+            <p className="text-sm flex justify-between">
+              <span className="font-medium text-[#4ADE80] mr-3">Conversions:</span>
+              <span>{payload[1].value.toLocaleString()}</span>
+            </p>
+            <p className="text-sm flex justify-between">
+              <span className="font-medium text-[#F59E0B] mr-3">Rate:</span>
+              <span>{payload[2].value}%</span>
+            </p>
+          </div>
         </div>
-      );
+      )
     }
-    return null;
-  };
+    return null
+  }
 
   return (
     <div className="w-full overflow-x-auto">
-      {/* Set a min-width to ensure horizontal scroll on small screens */}
-      <div className="min-w-[600px]">
-        <ResponsiveContainer width="100%" height={200}>
-          <RechartsLineChart data={data} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
+      <div className="min-w-[600px] p-7">
+        <ResponsiveContainer width="100%" height={250}>
+          <RechartsLineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
             <XAxis
               dataKey="name"
-              tick={{ fill: "#9CA3AF", fontSize: 10 }}
-              axisLine={false}
+              tick={{ fill: "#4B5563", fontSize: 12, fontWeight: 500 }}
+              axisLine={{ stroke: "#374151" }}
               tickLine={false}
-              dy={5}
+              dy={10}
             />
             <YAxis
-              tick={{ fill: "#9CA3AF", fontSize: 10 }}
+              yAxisId="left"
+              tick={{ fill: "#4B5563", fontSize: 12 }}
               axisLine={false}
               tickLine={false}
-              tickFormatter={(value) => `${value}M`}
-              domain={[0, 100]}
-              ticks={[10, 50, 100]}
-              dx={-5}
+              tickFormatter={(value) => `${value / 1000}k`}
+              domain={[0, "dataMax + 20000"]}
+            />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              tick={{ fill: "#4B5563", fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(value) => `${value}%`}
+              domain={[0, 15]}
             />
             <Tooltip content={<CustomTooltip />} />
+
             <Line
+              yAxisId="left"
               type="monotone"
-              dataKey="User"
+              dataKey="Visitors"
+              name="Daily Visitors"
               stroke="#696CEE"
               strokeWidth={3}
-              dot={{ r: 3, strokeWidth: 2, fill: "white", stroke: "#696CEE" }}
-              activeDot={{ r: 5, fill: "#696CEE" }}
+              dot={{ r: 4, strokeWidth: 2, fill: "white", stroke: "#696CEE" }}
+              activeDot={{ r: 6, fill: "#696CEE" }}
             />
             <Line
+              yAxisId="left"
               type="monotone"
-              dataKey="Visitor"
+              dataKey="Conversions"
+              name="Conversions"
               stroke="#4ADE80"
               strokeWidth={3}
-              dot={{ r: 3, strokeWidth: 2, fill: "white", stroke: "#4ADE80" }}
-              activeDot={{ r: 5, fill: "#4ADE80" }}
+              dot={{ r: 4, strokeWidth: 2, fill: "white", stroke: "#4ADE80" }}
+              activeDot={{ r: 6, fill: "#4ADE80" }}
+            />
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="ConversionRate"
+              name="Conversion Rate"
+              stroke="#F59E0B"
+              strokeWidth={2}
+              strokeDasharray="5 5"
+              dot={{ r: 4, strokeWidth: 2, fill: "white", stroke: "#F59E0B" }}
+              activeDot={{ r: 6, fill: "#F59E0B" }}
+            />
+
+            <Legend
+              verticalAlign="top"
+              height={36}
+              formatter={(value) => <span className="text-gray-700">{value}</span>}
+            />
+
+            <ReferenceLine
+              y={9.5}
+              yAxisId="right"
+              label={{
+                value: "Avg Rate",
+                position: "right",
+                fill: "#94A3B8",
+                fontSize: 10,
+              }}
+              stroke="#94A3B8"
+              strokeDasharray="3 3"
             />
           </RechartsLineChart>
         </ResponsiveContainer>
       </div>
     </div>
-  );
+  )
 }
 
-export default LineChart;
+export default LineChart
+

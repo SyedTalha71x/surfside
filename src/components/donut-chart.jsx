@@ -1,14 +1,21 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+/* eslint-disable react/prop-types */
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts"
 
-const DonutChart = () => {
+const DonutChart = ({ dateRange }) => {
+  // This data would typically be filtered based on the date range
   const data = [
-    { name: 'comp1', value: 10, color: '#696CEE' },
-    { name: 'comp2', value: 4, color: '#4ADE80' },
-    { name: 'remaining', value: 6, color: '#E5E7EB' },
-  ];
-  
+    { name: "comp1", value: 10, color: "#696CEE" },
+    { name: "comp2", value: 4, color: "#4ADE80" },
+    { name: "remaining", value: 6, color: "#E5E7EB" },
+  ]
+
+  // In a real implementation, you would filter data based on dateRange
+  // const filteredData = data.filter(item => {
+  //   const itemDate = new Date(item.date);
+  //   return itemDate >= dateRange.startDate && itemDate <= dateRange.endDate;
+  // });
+
   return (
     <div className="h-48 flex flex-col justify-between">
       <div className="flex h-full">
@@ -34,7 +41,7 @@ const DonutChart = () => {
             </PieChart>
           </ResponsiveContainer>
         </div>
-        
+
         {/* Stats and legend on right side */}
         <div className="w-1/2 flex flex-col justify-center items-start space-y-2 pl-4">
           <div className="flex items-center">
@@ -50,7 +57,8 @@ const DonutChart = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DonutChart;
+export default DonutChart
+

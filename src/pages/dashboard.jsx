@@ -1,39 +1,39 @@
-import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import LineChart from "../components/line-chart";
-import DonutChart from "../components/donut-chart";
-import BarChart from "../components/bar-chart";
-import ReportCard from "../components/report-card";
-import RegularUserCard from "../components/regular-user";
-import ActiveUserCard from "../components/visitor-card";
-
-const dateOptions = ["This week", "Last month", "6 months", "Last year"];
+import { useState } from "react"
+import { FaSearch } from "react-icons/fa"
+import LineChart from "../components/line-chart"
+import DonutChart from "../components/donut-chart"
+import BarChart from "../components/bar-chart"
+import ReportCard from "../components/report-card"
+import RegularUserCard from "../components/regular-user"
+import ActiveUserCard from "../components/visitor-card"
+import DateRangePicker from "../components/date-range-picker"
 
 function Dashboard() {
-  const [search, setSearch] = useState("");
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("6 months");
+  const [search, setSearch] = useState("")
 
-  const [showDonutDropdown, setShowDonutDropdown] = useState(false);
-  const [selectedDonutOption, setSelectedDonutOption] = useState("This month");
+  // Initialize date ranges with default values (last 30 days)
+  const today = new Date()
+  const thirtyDaysAgo = new Date()
+  thirtyDaysAgo.setDate(today.getDate() - 30)
 
-  const [showCryptoDropdown, setShowCryptoDropdown] = useState(false);
-  const [selectedCryptoOption, setSelectedCryptoOption] = useState("This week");
+  // Date range state for each chart
+  const [lineChartDateRange, setLineChartDateRange] = useState({
+    startDate: thirtyDaysAgo,
+    endDate: today,
+    key: "selection",
+  })
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    setShowDropdown(false);
-  };
+  const [donutChartDateRange, setDonutChartDateRange] = useState({
+    startDate: thirtyDaysAgo,
+    endDate: today,
+    key: "selection",
+  })
 
-  const handleDonutOptionClick = (option) => {
-    setSelectedDonutOption(option);
-    setShowDonutDropdown(false);
-  };
-
-  const handleCryptoOptionClick = (option) => {
-    setSelectedCryptoOption(option);
-    setShowCryptoDropdown(false);
-  };
+  const [barChartDateRange, setBarChartDateRange] = useState({
+    startDate: thirtyDaysAgo,
+    endDate: today,
+    key: "selection",
+  })
 
   return (
     <div className="md:p-6 p-0">
@@ -61,12 +61,12 @@ function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
         {/* Line Chart Section */}
         <div className="md:col-span-8 bg-white rounded-2xl p-5">
-          <div className="flex justify-between items-center mb-6 p-2 relative">
+          <div className="flex justify-between md:flex-row flex-col gap-4 items-center mb-6 p-2">
             <div>
               <h2 className="text-black font-roboto text-xl font-bold">Daily Visitors</h2>
             </div>
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center md:flex-row flex-col gap-3">
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-[#696CEE]"></div>
                   <span className="text-xs">User</span>
@@ -76,30 +76,10 @@ function Dashboard() {
                   <span className="text-xs">Visitor</span>
                 </div>
               </div>
-              <div className="relative">
-                <button
-                  onClick={() => setShowDropdown((prev) => !prev)}
-                  className="bg-[#F5F5F5] text-gray-700 text-xs rounded-lg px-3 py-1.5 border border-gray-200"
-                >
-                  {selectedOption}
-                </button>
-                {showDropdown && (
-                  <div className="absolute right-0 top-8 bg-[#0B0D11] backdrop-blur-3xl text-white text-xs rounded-lg shadow-lg py-2 w-32 z-10">
-                    {dateOptions.map((option) => (
-                      <div
-                        key={option}
-                        onClick={() => handleOptionClick(option)}
-                        className="px-4 py-2 hover:bg-gray-600 cursor-pointer border-b last:border-b-0"
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <DateRangePicker dateRange={lineChartDateRange} onDateRangeChange={setLineChartDateRange} />
             </div>
           </div>
-          <LineChart />
+          <LineChart dateRange={lineChartDateRange} />
         </div>
 
         {/* Right Side Cards */}
@@ -110,63 +90,23 @@ function Dashboard() {
 
         {/* Donut Chart Section */}
         <div className="md:col-span-4 bg-white rounded-2xl p-5 flex flex-col h-64">
-          <div className="flex justify-between items-center mb-2 relative">
+          <div className="flex justify-between items-center mb-2">
             <h2 className="text-black font-semibold">Comp2</h2>
-            <div className="relative">
-              <button
-                onClick={() => setShowDonutDropdown((prev) => !prev)}
-                className="bg-[#F5F5F5] text-gray-700 text-xs rounded-lg px-3 py-1.5 border border-gray-200"
-              >
-                {selectedDonutOption}
-              </button>
-              {showDonutDropdown && (
-                <div className="absolute right-0 top-8 bg-[#0B0D11] backdrop-blur-3xl text-white text-xs rounded-lg shadow-lg py-2 w-32 z-10">
-                  {dateOptions.map((option) => (
-                    <div
-                      key={option}
-                      onClick={() => handleDonutOptionClick(option)}
-                      className="px-4 py-2 hover:bg-gray-600 cursor-pointer border-b last:border-b-0"
-                    >
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <DateRangePicker dateRange={donutChartDateRange} onDateRangeChange={setDonutChartDateRange} />
           </div>
           <div className="flex-grow">
-            <DonutChart />
+            <DonutChart dateRange={donutChartDateRange} />
           </div>
         </div>
 
         {/* Crypto Conversion Section */}
         <div className="md:col-span-4 bg-white rounded-2xl p-5 flex flex-col h-64">
-          <div className="flex justify-between items-center mb-2 relative">
+          <div className="flex justify-between items-center mb-2">
             <h2 className="text-black font-semibold">Crypto conversion</h2>
-            <div className="relative">
-              <button
-                onClick={() => setShowCryptoDropdown((prev) => !prev)}
-                className="bg-[#F5F5F5] text-gray-700 text-xs rounded-lg px-3 py-1.5 border border-gray-200"
-              >
-                {selectedCryptoOption}
-              </button>
-              {showCryptoDropdown && (
-                <div className="absolute right-0 top-8 bg-[#0B0D11] backdrop-blur-3xl text-white text-xs rounded-lg shadow-lg py-2 w-32 z-10">
-                  {dateOptions.map((option) => (
-                    <div
-                      key={option}
-                      onClick={() => handleCryptoOptionClick(option)}
-                      className="px-4 py-2 hover:bg-gray-600 cursor-pointer border-b last:border-b-0"
-                    >
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <DateRangePicker dateRange={barChartDateRange} onDateRangeChange={setBarChartDateRange} />
           </div>
           <div className="flex-grow">
-            <BarChart />
+            <BarChart dateRange={barChartDateRange} />
           </div>
         </div>
 
@@ -176,7 +116,8 @@ function Dashboard() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard
+

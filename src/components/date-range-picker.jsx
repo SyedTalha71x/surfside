@@ -1,3 +1,5 @@
+"use client"
+
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
@@ -5,14 +7,14 @@ import { useState, useRef, useEffect } from "react"
 import { Calendar, ChevronDown } from "lucide-react"
 import { format } from "date-fns"
 
-
 export default function DateRangePicker({ dateRange, onDateRangeChange }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isCustomRange, setIsCustomRange] = useState(false)
   const [tempStartDate, setTempStartDate] = useState(format(dateRange.startDate, "yyyy-MM-dd"))
   const [tempEndDate, setTempEndDate] = useState(format(dateRange.endDate, "yyyy-MM-dd"))
 
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  // Remove TypeScript type annotation
+  const dropdownRef = useRef(null)
 
   // Format date range for display
   const formatDateRange = () => {
@@ -43,7 +45,7 @@ export default function DateRangePicker({ dateRange, onDateRangeChange }) {
       return
     } else {
       start = new Date(end)
-      start.setDate(end.getDate() - (days))
+      start.setDate(end.getDate() - days)
     }
 
     onDateRangeChange({

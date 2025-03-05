@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts"
 
-const BarChart = () => {
+const BarChart = ({ dateRange }) => {
+  // This data would typically be filtered based on the date range
   const data = [
     { name: "Tue", value: 180 },
     { name: "Wed", value: 280 },
@@ -12,6 +14,12 @@ const BarChart = () => {
     { name: "Mon", value: 200 },
     { name: "Tue", value: 180 },
   ]
+
+  // In a real implementation, you would filter data based on dateRange
+  // const filteredData = data.filter(item => {
+  //   const itemDate = new Date(item.fullDate);
+  //   return itemDate >= dateRange.startDate && itemDate <= dateRange.endDate;
+  // });
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {

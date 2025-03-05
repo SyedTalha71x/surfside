@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import {
   LineChart as RechartsLineChart,
@@ -10,7 +11,8 @@ import {
   ReferenceLine,
 } from "recharts"
 
-function LineChart() {
+function LineChart({ dateRange }) {
+  // This data would typically be filtered based on the date range
   const data = [
     { name: "FEB", Visitors: 30000, Conversions: 2100, ConversionRate: 7.0 },
     { name: "MAR", Visitors: 80000, Conversions: 6400, ConversionRate: 8.0 },
@@ -19,6 +21,12 @@ function LineChart() {
     { name: "JUN", Visitors: 30000, Conversions: 3300, ConversionRate: 11.0 },
     { name: "JUL", Visitors: 50000, Conversions: 6000, ConversionRate: 12.0 },
   ]
+
+  // In a real implementation, you would filter data based on dateRange
+  // const filteredData = data.filter(item => {
+  //   const itemDate = new Date(item.fullDate);
+  //   return itemDate >= dateRange.startDate && itemDate <= dateRange.endDate;
+  // });
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -47,7 +55,7 @@ function LineChart() {
 
   return (
     <div className="w-full overflow-x-auto">
-      <div className="min-w-[600px] p-7">
+      <div className="min-w-[600px] p-3">
         <ResponsiveContainer width="100%" height={250}>
           <RechartsLineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
             <XAxis

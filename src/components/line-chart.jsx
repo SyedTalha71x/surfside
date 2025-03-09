@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import {
   LineChart as RechartsLineChart,
@@ -8,18 +7,18 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  ReferenceLine,
 } from "recharts"
 
+// eslint-disable-next-line no-unused-vars
 function LineChart({ dateRange }) {
   // This data would typically be filtered based on the date range
   const data = [
-    { name: "FEB", Visitors: 30000, Conversions: 2100, ConversionRate: 7.0 },
-    { name: "MAR", Visitors: 80000, Conversions: 6400, ConversionRate: 8.0 },
-    { name: "APR", Visitors: 45000, Conversions: 4050, ConversionRate: 9.0 },
-    { name: "MAY", Visitors: 60000, Conversions: 5400, ConversionRate: 9.0 },
-    { name: "JUN", Visitors: 30000, Conversions: 3300, ConversionRate: 11.0 },
-    { name: "JUL", Visitors: 50000, Conversions: 6000, ConversionRate: 12.0 },
+    { name: "FEB", Visitors: 30000, Conversions: 2100 },
+    { name: "MAR", Visitors: 80000, Conversions: 6400 },
+    { name: "APR", Visitors: 45000, Conversions: 4050 },
+    { name: "MAY", Visitors: 60000, Conversions: 5400 },
+    { name: "JUN", Visitors: 30000, Conversions: 3300 },
+    { name: "JUL", Visitors: 50000, Conversions: 6000 },
   ]
 
   // In a real implementation, you would filter data based on dateRange
@@ -42,10 +41,6 @@ function LineChart({ dateRange }) {
               <span className="font-medium text-[#4ADE80] mr-3">Conversions:</span>
               <span>{payload[1].value.toLocaleString()}</span>
             </p>
-            <p className="text-sm flex justify-between">
-              <span className="font-medium text-[#F59E0B] mr-3">Rate:</span>
-              <span>{payload[2].value}%</span>
-            </p>
           </div>
         </div>
       )
@@ -66,26 +61,15 @@ function LineChart({ dateRange }) {
               dy={10}
             />
             <YAxis
-              yAxisId="left"
               tick={{ fill: "#4B5563", fontSize: 12 }}
               axisLine={false}
               tickLine={false}
               tickFormatter={(value) => `${value / 1000}k`}
               domain={[0, "dataMax + 20000"]}
             />
-            <YAxis
-              yAxisId="right"
-              orientation="right"
-              tick={{ fill: "#4B5563", fontSize: 12 }}
-              axisLine={false}
-              tickLine={false}
-              tickFormatter={(value) => `${value}%`}
-              domain={[0, 15]}
-            />
             <Tooltip content={<CustomTooltip />} />
 
             <Line
-              yAxisId="left"
               type="monotone"
               dataKey="Visitors"
               name="Daily Visitors"
@@ -95,7 +79,6 @@ function LineChart({ dateRange }) {
               activeDot={{ r: 6, fill: "#696CEE" }}
             />
             <Line
-              yAxisId="left"
               type="monotone"
               dataKey="Conversions"
               name="Conversions"
@@ -104,35 +87,11 @@ function LineChart({ dateRange }) {
               dot={{ r: 4, strokeWidth: 2, fill: "white", stroke: "#4ADE80" }}
               activeDot={{ r: 6, fill: "#4ADE80" }}
             />
-            <Line
-              yAxisId="right"
-              type="monotone"
-              dataKey="ConversionRate"
-              name="Conversion Rate"
-              stroke="#F59E0B"
-              strokeWidth={2}
-              strokeDasharray="5 5"
-              dot={{ r: 4, strokeWidth: 2, fill: "white", stroke: "#F59E0B" }}
-              activeDot={{ r: 6, fill: "#F59E0B" }}
-            />
 
             <Legend
               verticalAlign="top"
               height={36}
               formatter={(value) => <span className="text-gray-700">{value}</span>}
-            />
-
-            <ReferenceLine
-              y={9.5}
-              yAxisId="right"
-              label={{
-                value: "Avg Rate",
-                position: "right",
-                fill: "#94A3B8",
-                fontSize: 10,
-              }}
-              stroke="#94A3B8"
-              strokeDasharray="3 3"
             />
           </RechartsLineChart>
         </ResponsiveContainer>
@@ -142,4 +101,3 @@ function LineChart({ dateRange }) {
 }
 
 export default LineChart
-

@@ -7,14 +7,14 @@ import rateRoutes from './Routes/rate-routes.js';
 configDotenv();
 connectToDB();
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8000;
 
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (res)=>{
-    res.send('Server is running')
+app.get('/', (res,req)=>{
+    req.send('Server is running')
 })
 
 app.use('/api', rateRoutes)

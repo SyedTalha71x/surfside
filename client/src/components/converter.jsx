@@ -20,7 +20,7 @@ const Converter = () => {
     const fetchSupportedCurrencies = async () => {
       try {
         const response = await axios.get(
-        `${BASE_URL}/api/currencies`
+        `${BASE_URL}/currencies`
         );
         setSupportedCurrencies(response.data.data);
         if (response.data.data.fiats.length > 0) {
@@ -43,7 +43,7 @@ const Converter = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${BASE_URL}/api/convert?from=${currencyFrom}&to=${currencyTo}&amount=${amount}`
+          `${BASE_URL}/convert?from=${currencyFrom}&to=${currencyTo}&amount=${amount}`
         );
         setConvertedAmount(response.data.data.convertedAmount);
         setRate(response.data.data.rate);

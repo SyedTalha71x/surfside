@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
 import { GoArrowDownRight, GoArrowUpRight } from "react-icons/go"
 import { Link } from "react-scroll"
 
-const ArrowBtn = ({ text, arrow, path }) => {
+const ArrowBtn = ({ text, arrow, path , onClick }) => {
     return (
         <Link
+            onClick={onClick}
             to={path}
             smooth
             duration={500}

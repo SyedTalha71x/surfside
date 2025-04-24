@@ -20,7 +20,7 @@ const Converter = () => {
     const fetchSupportedCurrencies = async () => {
       try {
         const response = await axios.get(
-        `${BASE_URL}/currencies`
+          `${BASE_URL}/currencies`
         );
         setSupportedCurrencies(response.data.data);
         if (response.data.data.fiats.length > 0) {
@@ -62,17 +62,6 @@ const Converter = () => {
     setCurrencyTo(currencyFrom);
   };
 
-  const allCurrencies = [
-    ...supportedCurrencies.fiats.map((fiat) => ({
-      name: `${fiat} (${fiat.toUpperCase()})`,
-      icon: fiat.toLowerCase(),
-    })),
-    ...supportedCurrencies.cryptos.map((crypto) => ({
-      name: `${crypto} (${crypto.toUpperCase()})`,
-      icon: crypto.toLowerCase(),
-    })),
-  ];
-
   return (
     <div className="w-full min-h-80 h-auto bg-white/10 backdrop-blur-md rounded-2xl md:rounded-3xl border border-white/50">
       <div className="w-full min-h-80 h-auto bg-white rounded-2xl relative top-2 left-2 shadow-2xl shadow-green-300/40 flex justify-center items-center">
@@ -108,11 +97,23 @@ const Converter = () => {
                   className="w-full pl-12 pr-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:border-[#696CEE] uppercase text-black appearance-none"
                   disabled={loading}
                 >
-                  {allCurrencies.map((currency) => (
-                    <option key={currency.icon} value={currency.icon}>
-                      {currency.name}
-                    </option>
-                  ))}
+                  {/* Fiat Currency Group */}
+                  <optgroup label="Fiat Currencies">
+                    {supportedCurrencies.fiats.map((fiat) => (
+                      <option key={fiat.toLowerCase()} value={fiat.toLowerCase()}>
+                        {fiat.toUpperCase()} ({fiat.toUpperCase()})
+                      </option>
+                    ))}
+                  </optgroup>
+                  
+                  {/* Crypto Currency Group */}
+                  <optgroup label="Cryptocurrencies">
+                    {supportedCurrencies.cryptos.map((crypto) => (
+                      <option key={crypto.toLowerCase()} value={crypto.toLowerCase()}>
+                        {crypto.toUpperCase()} ({crypto.toUpperCase()})
+                      </option>
+                    ))}
+                  </optgroup>
                 </select>
               </div>
             </div>
@@ -139,11 +140,23 @@ const Converter = () => {
                   className="w-full pl-12 pr-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:border-[#696CEE] uppercase text-black appearance-none"
                   disabled={loading}
                 >
-                  {allCurrencies.map((currency) => (
-                    <option key={currency.icon} value={currency.icon}>
-                      {currency.name}
-                    </option>
-                  ))}
+                  {/* Fiat Currency Group */}
+                  <optgroup label="Fiat Currencies">
+                    {supportedCurrencies.fiats.map((fiat) => (
+                      <option key={fiat.toLowerCase()} value={fiat.toLowerCase()}>
+                        {fiat.toUpperCase()} ({fiat.toUpperCase()})
+                      </option>
+                    ))}
+                  </optgroup>
+                  
+                  {/* Crypto Currency Group */}
+                  <optgroup label="Cryptocurrencies">
+                    {supportedCurrencies.cryptos.map((crypto) => (
+                      <option key={crypto.toLowerCase()} value={crypto.toLowerCase()}>
+                        {crypto.toUpperCase()} ({crypto.toUpperCase()})
+                      </option>
+                    ))}
+                  </optgroup>
                 </select>
               </div>
             </div>

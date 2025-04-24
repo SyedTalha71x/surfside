@@ -4,10 +4,11 @@ import connectToDB from './Utils/db.js';
 import { configDotenv } from 'dotenv';
 
 import rateRoutes from './Routes/rate-routes.js';
+import ContactRoutes from './Routes/contact-routes.js'
 configDotenv();
 connectToDB();
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 4000;
 
 app.use(cors())
 app.use(express.json())
@@ -18,6 +19,7 @@ app.get('/', (res,req)=>{
 })
 
 app.use('/api', rateRoutes)
+app.use('/api', ContactRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

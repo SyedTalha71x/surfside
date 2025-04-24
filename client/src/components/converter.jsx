@@ -4,8 +4,8 @@ import axios from "axios";
 import { BASE_URL } from "../utils/api";
 
 const Converter = () => {
-  const [currencyFrom, setCurrencyFrom] = useState("usd");
-  const [currencyTo, setCurrencyTo] = useState("gbp");
+  const [currencyFrom, setCurrencyFrom] = useState("");
+  const [currencyTo, setCurrencyTo] = useState("");
   const [amount, setAmount] = useState("1");
   const [convertedAmount, setConvertedAmount] = useState(0);
   const [rate, setRate] = useState(0);
@@ -23,12 +23,6 @@ const Converter = () => {
           `${BASE_URL}/currencies`
         );
         setSupportedCurrencies(response.data.data);
-        if (response.data.data.fiats.length > 0) {
-          setCurrencyFrom(response.data.data.fiats[0].toLowerCase());
-        }
-        if (response.data.data.fiats.length > 1) {
-          setCurrencyTo(response.data.data.fiats[1].toLowerCase());
-        }
       } catch (err) {
         setError("Failed to load supported currencies");
         console.error(err);
@@ -39,6 +33,11 @@ const Converter = () => {
   }, []);
 
   const handleConvert = async () => {
+    if (!currencyFrom || !currencyTo) {
+      setError("Please select both currencies");
+      return;
+    }
+    
     if (currencyFrom && currencyTo && amount && !isNaN(amount) && amount > 0) {
       try {
         setLoading(true);
@@ -86,17 +85,20 @@ const Converter = () => {
             <div className="flex-1 md:max-w-xs w-full">
               <label className="block text-[#747474] text-sm mb-1">From</label>
               <div className="relative flex items-center">
-                <img
-                  src={`/images/${currencyFrom}.png`}
-                  alt={currencyFrom}
-                  className="absolute left-3 w-6 h-6"
-                />
+                {currencyFrom && (
+                  <img
+                    src={`/images/${currencyFrom}.png`}
+                    alt={currencyFrom}
+                    className="absolute left-3 w-6 h-6"
+                  />
+                )}
                 <select
                   value={currencyFrom}
                   onChange={(e) => setCurrencyFrom(e.target.value)}
                   className="w-full pl-12 pr-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:border-[#696CEE] uppercase text-black appearance-none"
                   disabled={loading}
                 >
+                  <option value="">Select Currency</option>
                   {/* Fiat Currency Group */}
                   <optgroup label="Fiat Currencies">
                     {supportedCurrencies.fiats.map((fiat) => (
@@ -121,7 +123,7 @@ const Converter = () => {
             <button
               onClick={handleSwapCurrencies}
               className="mt-6 p-2 rounded-full hover:bg-gray-100 transition-colors"
-              disabled={loading}
+              disabled={loading || !currencyFrom || !currencyTo}
             >
               <BiTransferAlt color="#000" className="size-6 md:size-8" />
             </button>
@@ -129,17 +131,20 @@ const Converter = () => {
             <div className="flex-1 md:max-w-xs w-full">
               <label className="block text-[#747474] text-sm mb-1">To</label>
               <div className="relative flex items-center">
-                <img
-                  src={`/images/${currencyTo}.png`}
-                  alt={currencyTo}
-                  className="absolute left-3 w-6 h-6"
-                />
+                {currencyTo && (
+                  <img
+                    src={`/images/${currencyTo}.png`}
+                    alt={currencyTo}
+                    className="absolute left-3 w-6 h-6"
+                  />
+                )}
                 <select
                   value={currencyTo}
                   onChange={(e) => setCurrencyTo(e.target.value)}
                   className="w-full pl-12 pr-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:border-[#696CEE] uppercase text-black appearance-none"
                   disabled={loading}
                 >
+                  <option value="">Select Currency</option>
                   {/* Fiat Currency Group */}
                   <optgroup label="Fiat Currencies">
                     {supportedCurrencies.fiats.map((fiat) => (
@@ -185,11 +190,11 @@ const Converter = () => {
           <button
             onClick={handleConvert}
             className={`text-sm md:text-base cursor-pointer max-md:py-1.5 py-2 max-md:rounded-xl rounded-2xl w-full md:w-1/2 bg-[#696CEE] text-white transition-all duration-500 ${
-              loading
+              loading || !currencyFrom || !currencyTo
                 ? "opacity-50 cursor-not-allowed"
                 : "hover:bg-white hover:text-[#696CEE] border-[0.1px] border-[#696CEE]"
             }`}
-            disabled={loading}
+            disabled={loading || !currencyFrom || !currencyTo}
           >
             {loading ? "Converting..." : "Convert Now"}
           </button>

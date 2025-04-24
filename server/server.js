@@ -10,7 +10,10 @@ connectToDB();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors())
+app.use(cors({
+    origin: 'https://surfside-eight.vercel.app'
+  }));
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

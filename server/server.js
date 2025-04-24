@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(cors({
-    origin: 'https://surfside-eight.vercel.app'
+    origin: 'https://surfside-eight.vercel.app/'
   }));
 
 app.use(express.json())

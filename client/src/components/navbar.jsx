@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import ArrowBtn from './arrow-btn';
 import { motion } from 'motion/react'
 import { Link } from 'react-scroll';
+import { useNavigate } from 'react-router-dom';
 
 export const navigationLinks = [
     {
@@ -21,6 +22,7 @@ export const navigationLinks = [
 const Navbar = () => {
     const [hasScrolled, setHasScrolled] = useState(false);
     const [activeLink, setActiveLink] = useState('home');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -33,6 +35,10 @@ const Navbar = () => {
             window.removeEventListener("scroll", handleScroll);
         }
     });
+
+    const redirecToLogin = () =>{
+           navigate('/login')
+    }
 
     return (
         <nav className='sticky z-[99999] top-0'>
@@ -79,7 +85,7 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className='hidden md:block z-10'>
-                    <ArrowBtn text={'Contact Us'} arrow='up' path={'contact'} />
+                    <ArrowBtn text={'Login'} arrow='up' path={'Login'} onClick={redirecToLogin} />
                 </div>
             </div>
 

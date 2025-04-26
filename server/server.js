@@ -4,7 +4,9 @@ import connectToDB from './Utils/db.js';
 import { configDotenv } from 'dotenv';
 
 import rateRoutes from './Routes/rate-routes.js';
+import AuthRoutes from './Routes/auth-routes.js'
 import ContactRoutes from './Routes/contact-routes.js';
+import CryptoConversionRoutes from './Routes/crypto-conversion-routes.js'
 
 configDotenv();
 connectToDB();
@@ -12,10 +14,9 @@ connectToDB();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// CORS setup
 const allowedOrigins = [
   'https://surfside-eight.vercel.app',
-  'http://localhost:3000'
+  'http://localhost:5173'
 ];
 
 app.use(cors({
@@ -37,7 +38,9 @@ app.get('/', (req, res) => {
 
 app.use('/api', rateRoutes);
 app.use('/api', ContactRoutes);
+app.use('/api', AuthRoutes);
+app.use('/api', CryptoConversionRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on http://192.168.100.68:${PORT}`);
 });

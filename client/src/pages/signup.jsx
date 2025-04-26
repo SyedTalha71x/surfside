@@ -5,10 +5,12 @@ import { Link, useNavigate } from "react-router-dom"
 import toast, { Toaster } from "react-hot-toast"
 import { BASE_URL } from "../utils/api"
 
-export default function SignInPage() {
+export default function SignUpPage() {
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
+    secretKey: ""
   })
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -16,7 +18,7 @@ export default function SignInPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    if (!formData.email || !formData.password) {
+    if (!formData.name || !formData.email || !formData.password || !formData.secretKey) {
       toast.error("Please fill all fields")
       return
     }
@@ -24,7 +26,7 @@ export default function SignInPage() {
     setLoading(true)
     
     try {
-      const response = await fetch(`${BASE_URL}/admin-login`, {
+      const response = await fetch(`${BASE_URL}/admin-signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,17 +37,22 @@ export default function SignInPage() {
       const data = await response.json()
 
       if (response.ok) {
-        localStorage.setItem('token', data.token)
-        toast.success("Login successful!")
-                setTimeout(() => {
-          navigate('/dashboard/home')
-        }, 1000)
+        toast.success("Congratulations! You have successfully signed up.")
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          secretKey: ""
+        })
+        setTimeout(() => {
+          navigate('/login')
+        }, 2000)
       } else {
-        toast.error(data.message || "Login failed. Please check your credentials.")
+        toast.error(data.message || data.error || "Signup failed")
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.")
-      console.error('Login error:', error)
+      console.error('Signup error:', error)
     } finally {
       setLoading(false)
     }
@@ -80,9 +87,19 @@ export default function SignInPage() {
           <p className="text-gray-400 mb-6">
             Today is a new day. It's your day. You shape it.
             <br />
-            Sign in to start managing your projects.
+            Sign Up to start managing your projects.
           </p>
           <form onSubmit={handleSubmit} className="space-y-4 w-[90%]">
+            <div>
+              <input
+                type="text"
+                placeholder="Name"
+                className="w-full rounded-xl text-sm bg-[#1C1C1C] px-4 py-2 text-white placeholder-gray-500 outline-none focus:ring-2 focus:ring-[#696CEE]"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+              />
+            </div>
             <div>
               <input
                 type="email"
@@ -104,11 +121,17 @@ export default function SignInPage() {
                 minLength="6"
               />
             </div>
-            <div className="text-right">
-              <Link to={"/forgot-password"} className="text-sm text-gray-400 hover:text-white">
-                Forgot Password?
-              </Link>
+            <div>
+              <input
+                type="password"
+                placeholder="Admin Secret Key"
+                className="w-full rounded-xl text-sm bg-[#1C1C1C] px-4 py-2 text-white placeholder-gray-500 outline-none focus:ring-2 focus:ring-[#696CEE]"
+                value={formData.secretKey}
+                onChange={(e) => setFormData({ ...formData, secretKey: e.target.value })}
+                required
+              />
             </div>
+        
             <button
               type="submit"
               className="w-full rounded-xl bg-[#696CEE] py-2 text-white hover:bg-blue-700 transition-all duration-500 ease-in-out disabled:opacity-50"
@@ -120,15 +143,15 @@ export default function SignInPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Signing In...
+                  Processing...
                 </span>
-              ) : "Sign In"}
+              ) : "Sign Up"}
             </button>
             <div className="flex justify-center items-center">
               <p className="text-sm text-gray-400">
-                Don't have an account?{" "}
-                <Link to={"/signup"} className="text-[#696CEE] hover:text-blue-700 transition-all duration-500 ease-in-out">
-                  Sign Up
+                Already have an account?{" "}
+                <Link to={"/login"} className="text-[#696CEE] hover:text-blue-700 transition-all duration-500 ease-in-out">
+                  Login
                 </Link>
               </p>
             </div>

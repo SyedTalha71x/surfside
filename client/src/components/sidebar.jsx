@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { GoHomeFill } from "react-icons/go";
 import { HiMenu, HiX } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
-  // Detect scroll to apply navbar background
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -16,7 +16,9 @@ function Sidebar() {
   }, []);
 
   const logout = () =>{
-    window.location.href = '/login'
+    localStorage.removeItem('token')
+    localStorage.removeItem('resetEmail')
+    navigate('/login')
   }
 
   return (

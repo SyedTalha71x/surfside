@@ -7,6 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardLayout from "./layouts/layout";
 import Home from "./pages/dashboard";
 import Login from './pages/login'
+import SignUpPage from "./pages/signup";
+import ForgotPassword from './pages/forgot-password'
+import VerifyOTP from "./pages/verify-otp";
+import ResetPassword from './pages/reset-password'
 
 const App = () => {
   return (
@@ -23,12 +27,16 @@ const App = () => {
             <Footer />
           </div>
         }
-        
+
         />
-        <Route path="login" element={<Login/>}/>
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUpPage />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="verify-otp" element={<VerifyOTP />} />
+        <Route path="reset-password" element={<ResetPassword />} />
 
 
-        {/* Dashboard routes */}
+
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route path="home" element={<Home />} />
         </Route>

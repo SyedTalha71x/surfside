@@ -38,17 +38,13 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
-app.use((req, res, next) => {
-  req.path.startsWith('/api') ? next() : trackVisit(req, res, next);
-});
-
 app.use('/api', rateRoutes);
 app.use('/api', ContactRoutes);
 app.use('/api', AuthRoutes);
 app.use('/api', CryptoConversionRoutes);
 app.use('/api', VisitorRoutes);
 
-app.get('/track-visit', (req, res) => {
+app.get('/api/track-visit', (req, res) => {
   trackVisit(req, res, () => {
     res.json({ message: 'Visit tracked' });
   });

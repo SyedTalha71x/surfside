@@ -12,7 +12,21 @@ import ForgotPassword from './pages/forgot-password'
 import VerifyOTP from "./pages/verify-otp";
 import ResetPassword from './pages/reset-password'
 
+import { BASE_URL } from "./utils/api";
+import { useEffect } from "react";
+
+
 const App = () => {
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/track-visit`, {
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => console.log('Visit tracked:', data))
+    .catch(error => console.error('Error tracking visit:', error));
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

@@ -48,6 +48,12 @@ app.use('/api', AuthRoutes);
 app.use('/api', CryptoConversionRoutes);
 app.use('/api', VisitorRoutes);
 
+app.get('/track-visit', (req, res) => {
+  trackVisit(req, res, () => {
+    res.json({ message: 'Visit tracked' });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://192.168.100.68:${PORT}`);
 });

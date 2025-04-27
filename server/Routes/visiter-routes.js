@@ -6,4 +6,5 @@ const router = express.Router();
 
 router.get('/total-visitors', getTotalVisits);
 
+
 export default router;

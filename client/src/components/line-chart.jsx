@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useState, useEffect } from 'react';
 import {
   LineChart as RechartsLineChart,
   Line,
@@ -8,30 +9,56 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts"
+import axios from 'axios';
+import { BASE_URL } from '../utils/api';
 
-// eslint-disable-next-line no-unused-vars
 function LineChart({ dateRange }) {
-  // This data would typically be filtered based on the date range
-  const data = [
-    { name: "FEB", Visitors: 30000, Conversions: 2100 },
-    { name: "MAR", Visitors: 80000, Conversions: 6400 },
-    { name: "APR", Visitors: 45000, Conversions: 4050 },
-    { name: "MAY", Visitors: 60000, Conversions: 5400 },
-    { name: "JUN", Visitors: 30000, Conversions: 3300 },
-    { name: "JUL", Visitors: 50000, Conversions: 6000 },
-  ]
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // In a real implementation, you would filter data based on dateRange
-  // const filteredData = data.filter(item => {
-  //   const itemDate = new Date(item.fullDate);
-  //   return itemDate >= dateRange.startDate && itemDate <= dateRange.endDate;
-  // });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const params = {
+          startDate: dateRange.startDate.toISOString(),
+          endDate: dateRange.endDate.toISOString()
+        };
+
+        const response = await axios.get(`${BASE_URL}/combined-visitors-and-conversions`, { params });
+        
+        if (response.data.success) {
+          setData(response.data.data);
+        } else {
+          throw new Error(response.data.message || 'Failed to fetch data');
+        }
+      } catch (err) {
+        console.error('Error fetching analytics data:', err);
+        setError(err.message || 'An error occurred while fetching data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [dateRange]);
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
+      const date = payload[0].payload.fullDate ? 
+        new Date(payload[0].payload.fullDate).toLocaleDateString('en-US', { 
+          month: 'short', 
+          day: 'numeric', 
+          year: 'numeric' 
+        }) : 
+        `${label} 2023`;
+      
       return (
         <div className="bg-[#0B0D11] p-3 rounded-lg shadow-md border border-gray-700 text-white">
-          <p className="text-xs font-medium mb-1">{label} 2023</p>
+          <p className="text-xs font-medium mb-1">{date}</p>
           <div className="space-y-1">
             <p className="text-sm flex justify-between">
               <span className="font-medium text-[#696CEE] mr-3">Visitors:</span>
@@ -41,11 +68,31 @@ function LineChart({ dateRange }) {
               <span className="font-medium text-[#4ADE80] mr-3">Conversions:</span>
               <span>{payload[1].value.toLocaleString()}</span>
             </p>
+            <p className="text-sm flex justify-between">
+              <span className="font-medium text-gray-300 mr-3">Conversion Rate:</span>
+              <span>{((payload[1].value / payload[0].value) * 100 || 0).toFixed(2)}%</span>
+            </p>
           </div>
         </div>
       )
     }
     return null
+  }
+
+  if (loading) {
+    return (
+      <div className="w-full h-64 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full h-64 flex items-center justify-center text-red-500">
+        <p>Error: {error}</p>
+      </div>
+    );
   }
 
   return (
@@ -71,8 +118,8 @@ function LineChart({ dateRange }) {
 
             <Line
               type="monotone"
-              dataKey="Visitors"
-              name="Daily Visitors"
+              dataKey="visitors"
+              name="Visitors"
               stroke="#696CEE"
               strokeWidth={3}
               dot={{ r: 4, strokeWidth: 2, fill: "white", stroke: "#696CEE" }}
@@ -80,7 +127,7 @@ function LineChart({ dateRange }) {
             />
             <Line
               type="monotone"
-              dataKey="Conversions"
+              dataKey="conversions"
               name="Conversions"
               stroke="#4ADE80"
               strokeWidth={3}

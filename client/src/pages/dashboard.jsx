@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { FaSearch } from "react-icons/fa"
 import LineChart from "../components/line-chart"
-import DonutChart from "../components/donut-chart"
 import BarChart from "../components/bar-chart"
 import ReportCard from "../components/report-card"
 import RegularUserCard from "../components/regular-user"
@@ -29,11 +28,6 @@ function Dashboard() {
     key: "selection",
   })
 
-  const [donutChartDateRange, setDonutChartDateRange] = useState({
-    startDate: thirtyDaysAgo,
-    endDate: today,
-    key: "selection",
-  })
 
   const [barChartDateRange, setBarChartDateRange] = useState({
     startDate: thirtyDaysAgo,
@@ -140,7 +134,7 @@ function Dashboard() {
         </div>
 
         {/* Donut Chart Section */}
-        <div className="md:col-span-4 bg-white rounded-2xl p-5 flex flex-col h-64">
+        {/* <div className="md:col-span-4 bg-white rounded-2xl p-5 flex flex-col h-64">
           <div className="flex justify-between items-center mb-2">
             <h2 className="text-black font-semibold">Comp2</h2>
             <DateRangePicker dateRange={donutChartDateRange} onDateRangeChange={setDonutChartDateRange} />
@@ -148,7 +142,7 @@ function Dashboard() {
           <div className="flex-grow">
             <DonutChart dateRange={donutChartDateRange} />
           </div>
-        </div>
+        </div> */}
 
         {/* Crypto Conversion Section */}
         <div className="md:col-span-4 bg-white rounded-2xl p-5 flex flex-col h-64">
@@ -170,7 +164,7 @@ function Dashboard() {
         </div>
       </div>
 
-        <div className="md:col-span-4 h-64">
+        <div className="md:col-span-8 h-64">
           <ReportCard />
         </div>
       </div>

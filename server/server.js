@@ -51,5 +51,5 @@ app.get('/api/track-visit', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://192.168.100.68:${PORT}`);
+  console.log(`Server is running on http://192.168.18.197:${PORT}`);
 });

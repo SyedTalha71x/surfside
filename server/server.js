@@ -20,6 +20,9 @@ const allowedOrigins = [
   'https://surfside-eight.vercel.app',
   'http://localhost:5173',
   'http://31.97.13.138',
+  'https://convertingcurrency.com',
+  'http://convertingcurrency.com'
+
 
 ];
 

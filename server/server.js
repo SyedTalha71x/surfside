@@ -18,7 +18,9 @@ const PORT = process.env.PORT || 4000;
 
 const allowedOrigins = [
   'https://surfside-eight.vercel.app',
-  'http://localhost:5173'
+  'http://localhost:5173',
+  'http://31.97.13.138',
+
 ];
 
 app.use(cors({

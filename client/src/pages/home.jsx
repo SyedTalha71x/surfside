@@ -1,10 +1,11 @@
 import { motion } from "motion/react";
 import { Element, Link } from "react-scroll";
+
 const Home = () => {
   return (
     <Element name="home">
       <section className="w-full relative h-screen">
-        <div className="absolute h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 bg-[#696CEE]/10 backdrop-blur-lg rounded-3xl top-52 -left-5 sm:top-48 md:top-52">
+        <div className="absolute h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 bg-[#696CEE]/10 md:mt-0 mt-34 backdrop-blur-lg rounded-3xl top-52 -left-5 sm:top-48 md:top-52">
           <img src="/images/insights.png" className="h-full" alt="" />
         </div>
         <div className="absolute h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 bottom-44  md:bottom-52  right-0">
@@ -39,10 +40,10 @@ const Home = () => {
                 Currency Conversion
               </h1>
             </motion.div>
-            <div className="flex flex-col gap-5 items-center z-50 ">
+            <div className="flex flex-col gap-8 items-center z-50 mt-8">
               <motion.p
                 initial={{
-                  y: -50,
+                  y: 30,
                   opacity: 0,
                 }}
                 whileInView={{
@@ -50,13 +51,17 @@ const Home = () => {
                   opacity: 1,
                 }}
                 transition={{
-                  duration: 1,
-                  delay: 0.2,
+                  duration: 0.8,
+                  delay: 0.3,
+                  ease: "easeOut"
                 }}
-                className="font-bold text-lg sm:text-2xl md:text-3xl xl:text-4xl text-center"
+                className="font-semibold text-lg sm:text-2xl md:text-3xl xl:text-4xl text-center text-white leading-relaxed sm:leading-relaxed md:leading-relaxed"
               >
-                Get real-time rates for fiat and cryptocurrencies. <br />{" "}
-                Compare and convert in seconds
+                Get real-time rates for fiat and cryptocurrencies.
+                <br className="mb-2" />
+                <span className="block mt-3">
+                  Compare and convert in seconds
+                </span>
               </motion.p>
               <Link
                 to="convert"

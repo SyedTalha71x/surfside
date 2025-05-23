@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <Element name="home">
       <section className="w-full relative h-screen">
-        <div className="absolute h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 bg-[#696CEE]/10 md:mt-0 mt-34 backdrop-blur-lg rounded-3xl top-52 -left-5 sm:top-48 md:top-52">
+        <div className="absolute h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 bg-[#696CEE]/10 md:mt-0 mt-40 backdrop-blur-lg rounded-3xl top-52 -left-5 sm:top-48 md:top-52">
           <img src="/images/insights.png" className="h-full" alt="" />
         </div>
         <div className="absolute h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 bottom-44  md:bottom-52  right-0">

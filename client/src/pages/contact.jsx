@@ -67,7 +67,7 @@ const Contact = () => {
    
       <Toaster position="bottom-right"   />
     <Element name="contact">
-      <section className="w-full relative min-h-screen py-10 z-50">
+      <section  className="w-full relative min-h-screen py-10 z-50">
         <div className="min-h-screen max-w-7xl mx-auto">
           <div className="flex flex-col gap-10 px-4 sm:px-10">
             <motion.div
